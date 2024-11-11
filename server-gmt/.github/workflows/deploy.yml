@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main # replace with your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "20.12.1" # replace with your Node.js version
+
+      - name: SSH and run script
+        uses: appleboy/ssh-action@master
+        env:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd game-termial/Hypermove-Portal-Pages
+            git pull
+            npm install 
+            npm run build
+            pm2 restart index
+            sudo nginx -t
+            sudo service nginx restart
