@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .custom-label {
+    @apply text-xs text-[#c6c6c6];
+  }
+  .custom-input {
+    @apply w-full bg-[#393939] rounded-full text-white placeholder:text-[#6f6f6f] py-2 px-4 text-sm focus:outline-none;
+  }
+  .page-padding{
+    @apply px-[5%] py-16
+  }
+}
